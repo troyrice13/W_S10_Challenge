@@ -1,19 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { pizzaApi } from './pizzaApi';
-import pizzaReducer from './pizzaSlice';
+import sizeFilterReducer from './sizeFilterSlice';
 
-
-const resetStore = () => configureStore({
+export const resetStore = () => configureStore({
   reducer: {
-    // add your reducer(s) here
-
-    [pizzaApi.reducerPath]: pizzaApi.reducer
+    [pizzaApi.reducerPath]: pizzaApi.reducer,
+    sizeFilter: sizeFilterReducer
   },
-  middleware: getDefault => getDefault().concat(
-    // if using RTK Query for your networking: add your middleware here
-    // if using Redux Thunk for your networking: you can ignore this
-    pizzaApi.middleware
-  ),
-})
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(pizzaApi.middleware),
+});
 
-export const store = resetStore()
+
+export const store = resetStore();
